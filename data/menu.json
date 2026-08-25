@@ -29,8 +29,8 @@
       "description": "Aromatic basmati rice cooked with tender chicken and traditional spices.",
       "price": 18,
       "categoryId": "biriyani",
-      "image": "/menu/card1-1-1-1787657319953.png",
-      "available": false,
+      "image": "/api/menu/image/gemini-generated-image-y3tgyqy3tgyqy3tg-1787663446260.jpg",
+      "available": true,
       "popular": true
     },
     {
