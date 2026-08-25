@@ -45,11 +45,11 @@
     },
     {
       "id": "3",
-      "categoryId": "bread",
       "name": "Porotta",
       "description": "Flaky and layered traditional Malabar-style porotta.",
       "price": 2,
-      "image": "/menu/porotta.webp",
+      "categoryId": "bread",
+      "image": "/api/menu/image/hanginglamp-1-1-1-1-1-1-1-1787657737139.png",
       "available": true,
       "popular": true
     },
