@@ -35,11 +35,11 @@
     },
     {
       "id": "2",
-      "categoryId": "biriyani",
       "name": "Beef Biriyani",
       "description": "Malabar-style biriyani with tender beef and fragrant basmati rice.",
       "price": 20,
-      "image": "/menu/beef-biriyani.webp",
+      "categoryId": "biriyani",
+      "image": "/api/menu/image/library-1787657701352.jpg",
       "available": true,
       "popular": false
     },
