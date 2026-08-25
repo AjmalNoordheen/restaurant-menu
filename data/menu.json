@@ -62,6 +62,16 @@
       "image": "/api/menu/image/gemini-generated-image-f4aw98f4aw98f4aw-1787657760754.jpg",
       "available": true,
       "popular": false
+    },
+    {
+      "id": "d9feb289-0fed-4e78-baa4-2888c86008a3",
+      "name": "Dum biriyani",
+      "description": "Best biriyani",
+      "price": 89.9,
+      "categoryId": "biriyani",
+      "image": "/api/menu/image/whatsapp-image-2025-04-22-at-18-20-59-0dfca32b-1787657805237.jpg",
+      "available": true,
+      "popular": true
     }
   ]
 }
