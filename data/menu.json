@@ -25,43 +25,53 @@
   "items": [
     {
       "id": "1",
-      "categoryId": "biriyani",
       "name": "Chicken Biriyani",
       "description": "Aromatic basmati rice cooked with tender chicken and traditional spices.",
       "price": 18,
-      "image": "/menu/chicken-biriyani.webp",
+      "categoryId": "biriyani",
+      "image": "/api/menu/image/gemini-generated-image-y3tgyqy3tgyqy3tg-1787663446260.jpg",
       "available": true,
       "popular": true
     },
     {
       "id": "2",
-      "categoryId": "biriyani",
       "name": "Beef Biriyani",
       "description": "Malabar-style biriyani with tender beef and fragrant basmati rice.",
       "price": 20,
-      "image": "/menu/beef-biriyani.webp",
+      "categoryId": "biriyani",
+      "image": "/api/menu/image/library-1787657701352.jpg",
       "available": true,
       "popular": false
     },
     {
       "id": "3",
-      "categoryId": "bread",
       "name": "Porotta",
       "description": "Flaky and layered traditional Malabar-style porotta.",
       "price": 2,
-      "image": "/menu/porotta.webp",
+      "categoryId": "bread",
+      "image": "/api/menu/image/hanginglamp-1-1-1-1-1-1-1-1787657737139.png",
       "available": true,
       "popular": true
     },
     {
       "id": "4",
-      "categoryId": "drinks",
       "name": "Fresh Lime",
       "description": "Refreshing fresh lime juice with a hint of mint.",
       "price": 8,
-      "image": "/menu/fresh-lime.webp",
+      "categoryId": "drinks",
+      "image": "/api/menu/image/gemini-generated-image-f4aw98f4aw98f4aw-1787657760754.jpg",
       "available": true,
       "popular": false
+    },
+    {
+      "id": "d9feb289-0fed-4e78-baa4-2888c86008a3",
+      "name": "Dum biriyani",
+      "description": "Best biriyani",
+      "price": 89.9,
+      "categoryId": "biriyani",
+      "image": "/api/menu/image/whatsapp-image-2025-04-22-at-18-20-59-0dfca32b-1787657805237.jpg",
+      "available": true,
+      "popular": true
     }
   ]
 }
