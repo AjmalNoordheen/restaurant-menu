@@ -10,9 +10,10 @@ export async function GET() {
   try {
     const file = await getGithubFile(MENU_PATH);
 
-    const content = Buffer.from(file.content, "base64").toString(
-      "utf-8"
-    );
+    const content = Buffer.from(
+      file.content,
+      "base64"
+    ).toString("utf-8");
 
     const menu = JSON.parse(content);
 
@@ -35,13 +36,22 @@ export async function PUT(request: Request) {
   try {
     const body = await request.json();
 
-    const file = await getGithubFile(MENU_PATH);
+    if (!body.categories || !body.items) {
+      return NextResponse.json(
+        {
+          error: "Invalid menu data",
+        },
+        {
+          status: 400,
+        }
+      );
+    }
 
-    const content = JSON.stringify(body, null, 2);
+    const file = await getGithubFile(MENU_PATH);
 
     await updateGithubFile(
       MENU_PATH,
-      content,
+      JSON.stringify(body, null, 2),
       "Update restaurant menu",
       file.sha
     );

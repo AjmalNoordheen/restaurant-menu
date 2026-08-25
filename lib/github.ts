@@ -13,14 +13,17 @@ function headers() {
   };
 }
 
-export async function getGithubFile(path: string) {
+export async function getGithubFile(
+  path: string,
+  cache: RequestCache = "no-store"
+) {
   const url =
     `${GITHUB_API}/repos/${owner}/${repo}/contents/${path}` +
     `?ref=${branch}`;
 
   const response = await fetch(url, {
     headers: headers(),
-    cache: "no-store",
+    cache,
   });
 
   if (!response.ok) {

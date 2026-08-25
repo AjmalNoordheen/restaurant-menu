@@ -1,6 +1,9 @@
 "use client";
 
-import type { Category } from "@/data/menu";
+import { AnimatePresence, motion } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useEffect, useState } from "react";
+import type { Category } from "@/types/menu";
 
 type CategoryTabsProps = {
   categories: Category[];
@@ -13,27 +16,108 @@ export default function CategoryTabs({
   selectedCategory,
   onSelect,
 }: CategoryTabsProps) {
-  return (
-    <div className="no-scrollbar -mx-4 overflow-x-auto px-4">
-      <div className="flex min-w-max gap-3">
-        {categories.map((category) => {
-          const active = selectedCategory === category.id;
+  const [expanded, setExpanded] = useState(false);
+  useEffect(() => {
+    if (selectedCategory && !categories.slice(0, 2).some((category) => category.id === selectedCategory)) {
+      setExpanded(true);
+    }
+  }, [categories, selectedCategory]);
 
-          return (
-            <button
-              key={category.id}
-              onClick={() => onSelect(category.id)}
-              className={`flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition-all ${
-                active
-                  ? "bg-neutral-900 text-white shadow-lg"
-                  : "bg-white text-neutral-600 ring-1 ring-black/5 hover:bg-neutral-100"
-              }`}
+  function renderCategory(category: Category, index: number) {
+    const active = selectedCategory === category.id;
+
+    return (
+      <motion.button
+        key={`${category.id || "category"}-${index}`}
+        onClick={() => onSelect(category.id)}
+        whileHover={{ y: -2 }}
+        whileTap={{ scale: 0.96 }}
+        aria-pressed={active}
+        className={`relative isolate flex shrink-0 items-center gap-1.5 overflow-hidden rounded-2xl px-3 py-2 text-sm font-semibold transition-colors sm:gap-2 sm:rounded-3xl sm:px-5 sm:py-2.5 ${
+          active
+            ? "bg-[#183c32] text-white shadow-lg"
+            : "text-neutral-600 hover:bg-[#f0e8db] hover:text-[#183c32]"
+        }`}
+      >
+        {active && (
+          <motion.span
+            layoutId="active-category"
+            className="absolute inset-0 z-0 rounded-full bg-[#183c32]"
+            transition={{ type: "spring", stiffness: 420, damping: 30 }}
+          />
+        )}
+        <motion.span
+          animate={{ scale: active ? 1.15 : 1, rotate: active ? -4 : 0 }}
+          transition={{ type: "spring", stiffness: 400, damping: 18 }}
+          className="relative z-10 text-base"
+        >
+          {category.icon || "🍽️"}
+        </motion.span>
+        <span className="relative z-10">{category.name}</span>
+      </motion.button>
+    );
+  }
+
+  return (
+    <div className="w-full max-w-md">
+      <div className="flex flex-col gap-2 rounded-3xl border border-[#e8ddce] bg-[#fffdf9]/80 p-2 shadow-[0_8px_25px_rgb(24_60_50/0.06)] backdrop-blur-sm">
+        <div className="flex flex-wrap items-center gap-2">
+          <div className="flex min-w-0 flex-1 gap-2 sm:hidden">
+            {categories.slice(0, 2).map(renderCategory)}
+          </div>
+          <div className="hidden min-w-0 flex-1 flex-wrap gap-2 sm:flex">
+            {categories.slice(0, 3).map(renderCategory)}
+          </div>
+          {categories.length > 2 && (
+            <motion.button
+              type="button"
+              whileHover={{ scale: 1.08 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={() => setExpanded((current) => !current)}
+              aria-label={expanded ? "Show fewer categories" : "Show more categories"}
+              className="ml-auto flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#f0e8db] text-[#183c32] transition-colors hover:bg-[#e4b85f] sm:hidden"
             >
-              <span>{category.icon}</span>
-              {category.name}
-            </button>
-          );
-        })}
+              {expanded ? <ChevronLeft size={18} /> : <ChevronRight size={18} />}
+            </motion.button>
+          )}
+          {categories.length > 3 && (
+            <motion.button
+              type="button"
+              whileHover={{ scale: 1.08 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={() => setExpanded((current) => !current)}
+              aria-label={expanded ? "Show fewer categories" : "Show more categories"}
+              className="ml-auto hidden h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#f0e8db] text-[#183c32] transition-colors hover:bg-[#e4b85f] sm:flex"
+            >
+              {expanded ? <ChevronLeft size={18} /> : <ChevronRight size={18} />}
+            </motion.button>
+          )}
+        </div>
+
+        <AnimatePresence initial={false}>
+          {expanded && categories.length > 2 && (
+            <motion.div
+              key="mobile-categories"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              className="flex flex-wrap gap-2 overflow-hidden border-t border-[#eee7dc] pt-2 sm:hidden"
+            >
+              {categories.slice(2).map(renderCategory)}
+            </motion.div>
+          )}
+          {expanded && categories.length > 3 && (
+            <motion.div
+              key="desktop-categories"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              className="hidden flex-wrap gap-2 overflow-hidden border-t border-[#eee7dc] pt-2 sm:flex"
+            >
+              {categories.slice(3).map(renderCategory)}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );
