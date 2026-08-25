@@ -25,11 +25,11 @@
   "items": [
     {
       "id": "1",
-      "categoryId": "biriyani",
       "name": "Chicken Biriyani",
       "description": "Aromatic basmati rice cooked with tender chicken and traditional spices.",
       "price": 18,
-      "image": "/menu/chicken-biriyani.webp",
+      "categoryId": "biriyani",
+      "image": "/menu/card1-1-1-1787657319953.png",
       "available": true,
       "popular": true
     },
