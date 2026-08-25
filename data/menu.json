@@ -55,11 +55,11 @@
     },
     {
       "id": "4",
-      "categoryId": "drinks",
       "name": "Fresh Lime",
       "description": "Refreshing fresh lime juice with a hint of mint.",
       "price": 8,
-      "image": "/menu/fresh-lime.webp",
+      "categoryId": "drinks",
+      "image": "/api/menu/image/gemini-generated-image-f4aw98f4aw98f4aw-1787657760754.jpg",
       "available": true,
       "popular": false
     }
