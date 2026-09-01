@@ -132,21 +132,21 @@ export default function MenuPageClient({
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-3 py-10 sm:px-4 sm:py-14">
+      <section className="mx-auto max-w-7xl px-2 py-4 sm:px-4 sm:py-10 md:py-14">
         <CategoryTabs categories={categories} selectedCategory={selectedCategory} onSelect={setSelectedCategory} />
         <motion.div
           key={`${selectedCategory}-${search}`}
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.35 }}
-          className="mt-10"
+          className="mt-4 sm:mt-8 md:mt-10"
         >
-          <h2 className="text-3xl font-black text-[#183c32]">Our Menu</h2>
-          <p className="mt-1 text-sm text-neutral-600">{filteredItems.length} items</p>
+          <h2 className="text-xl font-black text-[#183c32] sm:text-3xl">Our Menu</h2>
+          <p className="mt-0.5 text-xs text-neutral-600 sm:text-sm">{filteredItems.length} items</p>
         </motion.div>
 
         {filteredItems.length > 0 ? (
-          <div className="mt-6 grid gap-3 sm:grid-cols-2 md:grid-cols-3 md:gap-4 xl:grid-cols-4">
+          <div className="mt-4 flex flex-col gap-1.5 sm:grid sm:grid-cols-2 sm:gap-3 md:grid-cols-3 md:gap-4 xl:grid-cols-4">
             <AnimatePresence mode="popLayout">
               {filteredItems.map((item, index) => (
                 <MenuCard
