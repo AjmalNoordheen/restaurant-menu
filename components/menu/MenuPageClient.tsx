@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Search, Gamepad2 } from "lucide-react";
 
@@ -21,6 +21,7 @@ export default function MenuPageClient({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [showGames, setShowGames] = useState(false);
+  const gamesRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (initialMenu) {
@@ -146,7 +147,7 @@ export default function MenuPageClient({
         </motion.div>
 
         {filteredItems.length > 0 ? (
-          <div className="mt-4 flex flex-col gap-1.5 sm:grid sm:grid-cols-2 sm:gap-3 md:grid-cols-3 md:gap-4 xl:grid-cols-4">
+          <div className="mt-4 grid grid-cols-2 gap-2 sm:gap-3 sm:grid-cols-2 md:grid-cols-3 md:gap-4 xl:grid-cols-4">
             <AnimatePresence mode="popLayout">
               {filteredItems.map((item, index) => (
                 <MenuCard
@@ -166,7 +167,7 @@ export default function MenuPageClient({
         )}
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 pb-12 sm:px-6">
+      <section className="mx-auto max-w-6xl px-4 pb-12 sm:px-6" ref={gamesRef}>
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -216,6 +217,54 @@ export default function MenuPageClient({
       </section>
 
       {showGames && <GameModal onClose={() => setShowGames(false)} />}
+
+      {/* Floating Game Button */}
+      <motion.button
+        initial={{ scale: 0, opacity: 0, y: 20 }}
+        animate={{ scale: 1, opacity: 1, y: 0 }}
+        transition={{ delay: 0.5, duration: 0.5, type: "spring", stiffness: 100 }}
+        whileHover={{ scale: 1.15, rotate: 10 }}
+        whileTap={{ scale: 0.9 }}
+        onClick={() => {
+          gamesRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+        }}
+        className="fixed bottom-6 right-6 z-40 flex h-12 w-12 justify-center rounded-full bg-linear-to-br from-[#183c32] to-[#285f4e] shadow-2xl transition-all hover:shadow-[0_0_30px_rgba(228,184,95,0.5)] sm:h-14 sm:w-14"
+      >
+        <motion.div
+          animate={{
+            scale: [1, 1.1, 1],
+            rotate: [0, 15, -15, 0],
+          }}
+          transition={{
+            duration: 3,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="flex items-center justify-center"
+        >
+          <Gamepad2 size={28} className="text-[#e4b85f] sm:size-8 mt-2.5" strokeWidth={2} />
+        </motion.div>
+      </motion.button>
+
+      {/* Glow animation background */}
+      <motion.div
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{ scale: 1, opacity: 0.4 }}
+        transition={{ delay: 0.6, duration: 0.5 }}
+        className="fixed bottom-6 right-6 z-30 h-14 w-14 rounded-full bg-[#e4b85f] blur-xl sm:h-16 sm:w-16"
+      >
+        <motion.div
+          animate={{
+            scale: [1, 1.3, 1],
+          }}
+          transition={{
+            duration: 3,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="h-full w-full rounded-full"
+        />
+      </motion.div>
     </main>
   );
 }

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import { getGithubFile } from "@/lib/github";
+import { getGithubFile, deleteGithubFile } from "@/lib/github";
 
 const MIME_TYPES: Record<string, string> = {
   avif: "image/avif",
@@ -51,6 +51,49 @@ export async function GET(
     return NextResponse.json(
       { error: "Image file is unavailable" },
       { status: 404 }
+    );
+  }
+}
+
+export async function DELETE(
+  _request: Request,
+  { params }: { params: Promise<{ filename: string }> }
+) {
+  const { filename } = await params;
+
+  if (!/^[a-z0-9-]+\.(avif|jpe?g|png|webp)$/i.test(filename)) {
+    return NextResponse.json(
+      { error: "Invalid image filename" },
+      { status: 400 }
+    );
+  }
+
+  try {
+    const file = await getGithubFile(`public/menu/${filename}`);
+
+    if (file.type !== "file") {
+      return NextResponse.json(
+        { error: "Image file not found" },
+        { status: 404 }
+      );
+    }
+
+    await deleteGithubFile(
+      `public/menu/${filename}`,
+      `Delete menu image ${filename}`,
+      file.sha
+    );
+
+    return NextResponse.json({
+      success: true,
+      message: "Image deleted successfully",
+    });
+  } catch (error) {
+    console.error("Image DELETE error:", error);
+
+    return NextResponse.json(
+      { error: "Failed to delete image" },
+      { status: 500 }
     );
   }
 }

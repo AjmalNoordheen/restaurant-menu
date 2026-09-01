@@ -83,6 +83,29 @@ export default function AdminItemsClient({
     }
   }
 
+  function extractFilenameFromImageUrl(imageUrl: string): string | null {
+    const match = imageUrl.match(/\/api\/menu\/image\/([^/?]+)/);
+    return match ? match[1] : null;
+  }
+
+  async function deleteImageFile(imageUrl: string) {
+    const filename = extractFilenameFromImageUrl(imageUrl);
+    if (!filename) return;
+
+    try {
+      const response = await fetch(
+        `/api/menu/image/${filename}`,
+        { method: "DELETE" }
+      );
+
+      if (!response.ok) {
+        console.warn(`Failed to delete image: ${filename}`);
+      }
+    } catch (error) {
+      console.error("Error deleting image:", error);
+    }
+  }
+
   async function handleDelete(id: string) {
     const item = menu.items.find(
       (item) => item.id === id
@@ -95,6 +118,11 @@ export default function AdminItemsClient({
     );
 
     if (!confirmed) return;
+
+    // Delete the image file from storage
+    if (item.image) {
+      await deleteImageFile(item.image);
+    }
 
     const updatedMenu = {
       ...menu,
@@ -117,6 +145,11 @@ export default function AdminItemsClient({
   }
 
   async function handleSaveItem(item: MenuItem) {
+    // If editing and image changed, delete the old image
+    if (editingItem && editingItem.image !== item.image) {
+      await deleteImageFile(editingItem.image);
+    }
+
     let updatedItems: MenuItem[];
 
     if (editingItem) {
