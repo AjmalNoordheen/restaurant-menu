@@ -51,7 +51,7 @@ export default function MenuCard({
             transition={{ delay: index * 0.06 + 0.2, duration: 0.3 }}
             className="absolute left-0.5 top-0.5 flex items-center gap-0.5 rounded-full bg-[#e4b85f] px-1 py-0.5 text-[5px] font-bold text-[#183c32] shadow-md sm:left-3 sm:top-3 sm:gap-1 sm:px-3 sm:py-1.5 sm:text-[10px] md:left-4 md:top-4 md:px-3 md:py-1.5"
           >
-            <Flame size={7} className="sm:size-3.5" />
+            <Flame size={7} className="size-3 sm:size-3.5" />
             <span className="hidden sm:inline">Chef's pick</span>
           </motion.div>
         )}

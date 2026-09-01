@@ -242,7 +242,7 @@ export default function MenuPageClient({
           }}
           className="flex items-center justify-center"
         >
-          <Gamepad2 size={28} className="text-[#e4b85f] sm:size-8 mt-2.5" strokeWidth={2} />
+          <Gamepad2 size={28} className="text-[#e4b85f] sm:size-8 sm:mt-2.5" strokeWidth={2} />
         </motion.div>
       </motion.button>
 
