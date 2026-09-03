@@ -143,11 +143,11 @@
     },
     {
       "id": "9",
-      "name": "Chapati with Curry",
+      "name": "Chapati",
       "description": "Soft wheat chapati served with a homestyle vegetable curry.",
       "price": 12,
       "categoryId": "bread",
-      "image": "/api/menu/image/card1-1-1-1787657319953.png",
+      "image": "/api/menu/image/chappathi-1788437614834.jpg",
       "available": true,
       "popular": false
     },
