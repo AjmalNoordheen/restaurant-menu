@@ -34,6 +34,13 @@
       "icon": "🍖",
       "sort_order": 5,
       "active": true
+    },
+    {
+      "id": "shakes",
+      "name": "Shakes",
+      "icon": "🍷",
+      "sort_order": 6,
+      "active": true
     }
   ],
   "items": [
