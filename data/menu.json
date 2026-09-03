@@ -197,9 +197,9 @@
       "description": "Hot black tea brewed with cardamom, ginger, cinnamon, and warm spices.",
       "price": 6,
       "categoryId": "drinks",
-      "image": "/api/menu/image/8401f065-b100-495a-b170-698fc6dab6be-jpg-1787657591556.png",
+      "image": "/api/menu/image/masalatea-1788437831697.jpg",
       "available": true,
-      "popular": false
+      "popular": true
     }
   ]
 }
