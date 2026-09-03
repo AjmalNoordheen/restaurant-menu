@@ -107,8 +107,8 @@
       "description": "Tender mutton layered with fragrant basmati rice, fried onions, and aromatic spices.",
       "price": 24,
       "categoryId": "biriyani",
-      "image": "/api/menu/image/gemini-generated-image-y3tgyqy3tgyqy3tg-1787663446260.jpg",
-      "available": true,
+      "image": "/api/menu/image/mutton-1788437373676.jpg",
+      "available": false,
       "popular": true
     },
     {
