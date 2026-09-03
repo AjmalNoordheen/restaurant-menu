@@ -177,7 +177,7 @@
       "description": "Refreshing juice made with sweet, freshly squeezed oranges.",
       "price": 11,
       "categoryId": "drinks",
-      "image": "/api/menu/image/8401f065-b100-495a-b170-698fc6dab6be-jpg-1787657591556.png",
+      "image": "/api/menu/image/orangejuice-1788437748719.jpg",
       "available": true,
       "popular": false
     },
