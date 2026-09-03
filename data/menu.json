@@ -27,6 +27,13 @@
       "icon": "🍽️",
       "sort_order": 4,
       "active": true
+    },
+    {
+      "id": "alfaham",
+      "name": "Alfaham",
+      "icon": "🍖",
+      "sort_order": 5,
+      "active": true
     }
   ],
   "items": [
