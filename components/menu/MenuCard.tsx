@@ -1,8 +1,8 @@
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { Flame } from "lucide-react";
 import { getMenuImageUrl } from "@/lib/menu";
 import type { MenuItem } from "@/types/menu";
+import MenuImage from "@/components/menu/MenuImage";
 
 type MenuCardProps = {
   item: MenuItem;
@@ -26,7 +26,7 @@ export default function MenuCard({
       className="group flex h-auto min-h-0 flex-col gap-2 overflow-hidden rounded-xl border border-[#e8ddce] bg-[#fffdf9] p-2 shadow-[0_3px_8px_rgb(24_60_50/0.04)] transition-shadow hover:border-[#b8c9c0] hover:shadow-[0_6px_14px_rgb(24_60_50/0.1)] sm:rounded-3xl sm:p-1.5 sm:shadow-[0_4px_12px_rgb(24_60_50/0.05)] sm:hover:shadow-[0_12px_28px_rgb(24_60_50/0.12)] md:rounded-4xl md:p-2 md:shadow-[0_8px_25px_rgb(24_60_50/0.07)] md:hover:shadow-[0_22px_48px_rgb(24_60_50/0.16)]"
     >
       <div className="relative aspect-4/3 overflow-hidden rounded-lg bg-[#e9e2d7] ring-1 ring-black/5 sm:rounded-2xl md:rounded-[1.6rem]">
-        <Image
+        <MenuImage
           src={getMenuImageUrl(item.image)}
           alt={item.name}
           fill

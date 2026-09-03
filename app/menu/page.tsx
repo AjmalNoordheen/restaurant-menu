@@ -14,7 +14,9 @@ export default async function MenuPage() {
   let initialMenu = null;
 
   try {
-    initialMenu = await getMenuFromServer();
+    initialMenu = await getMenuFromServer({
+      popularOnly: true,
+    });
   } catch (error) {
     console.error("Initial menu load failed:", error);
   }

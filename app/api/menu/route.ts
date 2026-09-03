@@ -3,19 +3,22 @@ import {
   getGithubFile,
   updateGithubFile,
 } from "@/lib/github";
+import { getMenuFromServer } from "@/lib/menu-server";
 
 const MENU_PATH = "data/menu.json";
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
-    const file = await getGithubFile(MENU_PATH);
-
-    const content = Buffer.from(
-      file.content,
-      "base64"
-    ).toString("utf-8");
-
-    const menu = JSON.parse(content);
+    const url = new URL(request.url);
+    const category = url.searchParams.get("category") ?? undefined;
+    const search = url.searchParams.get("search") ?? undefined;
+    const popular = url.searchParams.get("popular");
+    const hasFilter = Boolean(category || search);
+    const menu = await getMenuFromServer({
+      category,
+      search,
+      popularOnly: popular === "false" ? false : !hasFilter,
+    });
 
     return NextResponse.json(menu);
   } catch (error) {

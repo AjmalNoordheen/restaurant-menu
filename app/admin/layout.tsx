@@ -1,12 +1,14 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
   Utensils,
   Tags,
-  Gamepad2,
-  Settings,
   ExternalLink,
 } from "lucide-react";
+import AdminMobileNav from "@/components/admin/AdminMobileNav";
 
 const navigation = [
   {
@@ -24,11 +26,6 @@ const navigation = [
     href: "/admin/categories",
     icon: Tags,
   },
-  {
-    name: "Games",
-    href: "/admin/games",
-    icon: Gamepad2,
-  },
 ];
 
 export default function AdminLayout({
@@ -36,29 +33,39 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+
   return (
-    <div className="min-h-screen bg-neutral-100">
-      <aside className="fixed inset-y-0 left-0 hidden w-64 border-r border-neutral-200 bg-white lg:block">
+    <div className="min-h-screen bg-[#eef3ef] text-neutral-900">
+      <aside className="fixed inset-y-0 left-0 hidden w-72 border-r border-[#285647] bg-[#15382f] text-white lg:block">
         <div className="flex h-full flex-col">
-          <div className="border-b border-neutral-100 px-6 py-6">
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-neutral-400">
+          <div className="border-b border-white/10 px-7 py-7">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#e4b85f]">
               Restaurant
             </p>
 
-            <h1 className="mt-1 text-xl font-black text-neutral-900">
+            <h1 className="mt-1 text-2xl font-black tracking-tight text-white">
               Menu Admin
             </h1>
+            <p className="mt-2 text-xs leading-5 text-[#b9cec3]">
+              Keep the menu fresh and easy to discover.
+            </p>
           </div>
 
-          <nav className="flex-1 space-y-1 p-4">
+          <nav className="flex-1 space-y-2 p-5">
             {navigation.map((item) => {
               const Icon = item.icon;
+              const active = pathname === item.href;
 
               return (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-neutral-600 transition hover:bg-neutral-100 hover:text-neutral-900"
+                  className={`flex items-center gap-3 rounded-2xl px-4 py-3.5 text-sm font-bold transition ${
+                    active
+                      ? "bg-[#e4b85f] text-[#15382f] shadow-lg shadow-black/10"
+                      : "text-[#c4d5cc] hover:bg-white/10 hover:text-white"
+                  }`}
                 >
                   <Icon size={19} />
                   {item.name}
@@ -67,11 +74,11 @@ export default function AdminLayout({
             })}
           </nav>
 
-          <div className="border-t border-neutral-100 p-4">
+          <div className="border-t border-white/10 p-5">
             <Link
               href="/menu"
               target="_blank"
-              className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-neutral-600 transition hover:bg-neutral-100 hover:text-neutral-900"
+              className="flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-bold text-[#c4d5cc] transition hover:bg-white/10 hover:text-white"
             >
               <ExternalLink size={18} />
               View Menu
@@ -80,7 +87,8 @@ export default function AdminLayout({
         </div>
       </aside>
 
-      <main className="min-h-screen lg:pl-64">
+      <main className="min-h-screen lg:pl-72">
+        <AdminMobileNav />
         {children}
       </main>
     </div>

@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect, useMemo, useState, useRef } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { Search, Gamepad2 } from "lucide-react";
+import { motion } from "framer-motion";
+import { Gamepad2 } from "lucide-react";
 
-import CategoryTabs from "@/components/menu/CategoryTabs";
 import GameModal from "@/components/menu/GameModal";
-import MenuCard from "@/components/menu/MenuCard";
+import MenuHero from "@/components/menu/MenuHero";
+import MenuResults from "@/components/menu/MenuResults";
 import { fetchMenu } from "@/lib/menu";
 import { EMPTY_MENU, type MenuData } from "@/types/menu";
 
@@ -17,51 +17,91 @@ export default function MenuPageClient({
 }) {
   const [menu, setMenu] = useState<MenuData>(initialMenu ?? EMPTY_MENU);
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [categoriesExpanded, setCategoriesExpanded] = useState(false);
   const [search, setSearch] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!initialMenu);
+  const [refreshSource, setRefreshSource] = useState<
+    "search" | "category" | null
+  >(null);
   const [error, setError] = useState("");
   const [showGames, setShowGames] = useState(false);
   const gamesRef = useRef<HTMLDivElement>(null);
+  const hasMounted = useRef(false);
+  const activeSearch = search.trim().length >= 3
+    ? search.trim()
+    : "";
 
   useEffect(() => {
-    if (initialMenu) {
-      setLoading(false);
+    if (!hasMounted.current && initialMenu) {
+      hasMounted.current = true;
       return;
     }
 
-    async function loadMenu() {
-      try {
-        setMenu(await fetchMenu());
-      } catch (error) {
-        console.error(error);
-        setError("Unable to load menu.");
-      } finally {
-        setLoading(false);
-      }
-    }
+    hasMounted.current = true;
 
-    loadMenu();
-  }, []);
+    const controller = new AbortController();
+    const timeout = window.setTimeout(async () => {
+      try {
+        setError("");
+        setMenu(await fetchMenu({
+          category: selectedCategory,
+          search: activeSearch,
+          signal: controller.signal,
+        }));
+      } catch (error) {
+        if (!controller.signal.aborted) {
+          console.error(error);
+          setError("Unable to load menu.");
+        }
+      } finally {
+        if (!controller.signal.aborted) {
+          setLoading(false);
+          setRefreshSource(null);
+        }
+      }
+    }, 300);
+
+    return () => {
+      window.clearTimeout(timeout);
+      controller.abort();
+    };
+  }, [initialMenu, selectedCategory, activeSearch]);
 
   const categories = useMemo(() => [
-    { id: "all", name: "All", icon: "🍽️", sort_order: 0, active: true },
+    { id: "all", name: "Chef's Picks", icon: "🔥", sort_order: 0, active: true },
     ...menu.categories
       .filter((category) => category.active)
       .sort((a, b) => a.sort_order - b.sort_order),
   ], [menu.categories]);
 
-  const filteredItems = useMemo(() => {
-    const searchTerm = search.toLowerCase().trim();
+  const filteredItems = menu.items;
 
-    return menu.items.filter((item) => {
-      const matchesCategory = selectedCategory === "all" || item.categoryId === selectedCategory;
-      const matchesSearch = !searchTerm ||
-        item.name.toLowerCase().includes(searchTerm) ||
-        item.description.toLowerCase().includes(searchTerm);
+  function handleCategoryChange(categoryId: string) {
+    if (categoryId === selectedCategory && !search.trim()) {
+      return;
+    }
 
-      return matchesCategory && matchesSearch;
-    });
-  }, [menu.items, selectedCategory, search]);
+    setRefreshSource("category");
+    setSelectedCategory(categoryId);
+    setSearch("");
+    setCategoriesExpanded(
+      categories.some((category, index) =>
+        category.id === categoryId && index >= 3
+      )
+    );
+  }
+
+  function handleSearchChange(value: string) {
+    setRefreshSource(
+      value.trim().length >= 3 ? "search" : null
+    );
+    setSearch(value);
+
+    if (value.trim()) {
+      setSelectedCategory("all");
+      setCategoriesExpanded(false);
+    }
+  }
 
   if (loading) {
     return (
@@ -87,85 +127,22 @@ export default function MenuPageClient({
 
   return (
     <main className="min-h-screen overflow-x-hidden bg-[#f5f1e9] text-neutral-950">
-      <section className="relative isolate overflow-hidden bg-[#183c32] px-5 pb-12 pt-12 text-white sm:pb-16 sm:pt-16">
-        <div className="pointer-events-none absolute -right-24 -top-32 -z-10 h-80 w-80 rounded-full border-32 border-[#d8784b]/30" />
-        <div className="pointer-events-none absolute -bottom-40 left-1/3 -z-10 h-80 w-80 rounded-full border-18 border-[#e4b85f]/20" />
-        <div className="mx-auto max-w-6xl">
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mb-3 text-sm font-medium uppercase tracking-[0.25em] text-[#e4b85f]"
-          >
-            Kerala kitchen · Dubai
-          </motion.p>
-          <motion.h1
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1, duration: 0.6 }}
-            className="max-w-2xl text-4xl font-black tracking-tight sm:text-6xl"
-          >
-            Taste of Kerala
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.25, duration: 0.6 }}
-            className="mt-3 max-w-xl text-sm leading-6 text-[#d7e2dc] sm:text-base"
-          >
-            Authentic flavours, freshly prepared for your table.
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.35, duration: 0.6 }}
-            className="relative mt-8 max-w-xl"
-          >
-            <Search size={20} className="absolute left-4 top-1/2 z-50 -translate-y-1/2 text-[#e4b85f]" />
-            <input
-              type="text"
-              value={search}
-              onChange={(event) => setSearch(event.target.value)}
-              placeholder="Search for food or drinks..."
-              className="w-full rounded-2xl border border-white/15 bg-white/10 py-4 pl-12 pr-4 text-sm text-white outline-none backdrop-blur-sm placeholder:text-[#b8c9c0] focus:border-[#e4b85f]"
-            />
-          </motion.div>
-        </div>
-      </section>
+      <MenuHero
+        search={search}
+        onSearchChange={handleSearchChange}
+        loading={refreshSource === "search"}
+      />
 
-      <section className="mx-auto max-w-7xl px-2 py-4 sm:px-4 sm:py-10 md:py-14">
-        <CategoryTabs categories={categories} selectedCategory={selectedCategory} onSelect={setSelectedCategory} />
-        <motion.div
-          key={`${selectedCategory}-${search}`}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.35 }}
-          className="mt-4 sm:mt-8 md:mt-10"
-        >
-          <h2 className="text-xl font-black text-[#183c32] sm:text-3xl">Our Menu</h2>
-          <p className="mt-0.5 text-xs text-neutral-600 sm:text-sm">{filteredItems.length} items</p>
-        </motion.div>
-
-        {filteredItems.length > 0 ? (
-          <div className="mt-4 grid grid-cols-2 gap-2 sm:gap-3 sm:grid-cols-2 md:grid-cols-3 md:gap-4 xl:grid-cols-4">
-            <AnimatePresence mode="popLayout">
-              {filteredItems.map((item, index) => (
-                <MenuCard
-                  key={item.id}
-                  item={item}
-                  index={index}
-                  priority={index === 0}
-                />
-              ))}
-            </AnimatePresence>
-          </div>
-        ) : (
-          <div className="py-20 text-center">
-            <p className="text-lg font-semibold text-neutral-800">No items found</p>
-            <p className="mt-2 text-sm text-neutral-500">Try another search or category.</p>
-          </div>
-        )}
-      </section>
+      <MenuResults
+        categories={categories}
+        selectedCategory={selectedCategory}
+        onCategoryChange={handleCategoryChange}
+        categoriesExpanded={categoriesExpanded}
+        onCategoriesExpandedChange={setCategoriesExpanded}
+        items={filteredItems}
+        search={search}
+        refreshing={refreshSource === "category"}
+      />
 
       <section className="mx-auto max-w-6xl px-4 pb-12 sm:px-6" ref={gamesRef}>
         <motion.div

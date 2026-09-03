@@ -1,28 +1,26 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useEffect, useState } from "react";
+import { ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
 import type { Category } from "@/types/menu";
 
 type CategoryTabsProps = {
   categories: Category[];
   selectedCategory: string;
   onSelect: (categoryId: string) => void;
+  expanded: boolean;
+  onExpandedChange: (expanded: boolean) => void;
+  loading?: boolean;
 };
 
 export default function CategoryTabs({
   categories,
   selectedCategory,
   onSelect,
+  expanded,
+  onExpandedChange,
+  loading = false,
 }: CategoryTabsProps) {
-  const [expanded, setExpanded] = useState(false);
-  useEffect(() => {
-    if (selectedCategory && !categories.slice(0, 2).some((category) => category.id === selectedCategory)) {
-      setExpanded(true);
-    }
-  }, [categories, selectedCategory]);
-
   function renderCategory(category: Category, index: number) {
     const active = selectedCategory === category.id;
 
@@ -51,7 +49,11 @@ export default function CategoryTabs({
           transition={{ type: "spring", stiffness: 400, damping: 18 }}
           className="relative z-10 text-base"
         >
-          {category.icon || "🍽️"}
+          {active && loading ? (
+            <Loader2 size={16} className="animate-spin" />
+          ) : (
+            category.icon || "🍽️"
+          )}
         </motion.span>
         <span className="relative z-10">{category.name}</span>
       </motion.button>
@@ -73,7 +75,7 @@ export default function CategoryTabs({
               type="button"
               whileHover={{ scale: 1.08 }}
               whileTap={{ scale: 0.9 }}
-              onClick={() => setExpanded((current) => !current)}
+              onClick={() => onExpandedChange(!expanded)}
               aria-label={expanded ? "Show fewer categories" : "Show more categories"}
               className="ml-auto flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#f0e8db] text-[#183c32] transition-colors hover:bg-[#e4b85f] sm:hidden"
             >
@@ -85,7 +87,7 @@ export default function CategoryTabs({
               type="button"
               whileHover={{ scale: 1.08 }}
               whileTap={{ scale: 0.9 }}
-              onClick={() => setExpanded((current) => !current)}
+              onClick={() => onExpandedChange(!expanded)}
               aria-label={expanded ? "Show fewer categories" : "Show more categories"}
               className="ml-auto hidden h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#f0e8db] text-[#183c32] transition-colors hover:bg-[#e4b85f] sm:flex"
             >
@@ -101,7 +103,7 @@ export default function CategoryTabs({
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              className="flex flex-wrap gap-2 overflow-hidden border-t border-[#eee7dc] pt-2 sm:hidden"
+              className="no-scrollbar flex max-h-48 flex-wrap gap-2 overflow-y-auto overscroll-contain border-t border-[#eee7dc] pt-2 pr-1 sm:hidden"
             >
               {categories.slice(2).map(renderCategory)}
             </motion.div>
@@ -112,7 +114,7 @@ export default function CategoryTabs({
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              className="hidden flex-wrap gap-2 overflow-hidden border-t border-[#eee7dc] pt-2 sm:flex"
+              className="no-scrollbar hidden max-h-48 flex-wrap gap-2 overflow-y-auto overscroll-contain border-t border-[#eee7dc] pt-2 pr-1 sm:flex"
             >
               {categories.slice(3).map(renderCategory)}
             </motion.div>

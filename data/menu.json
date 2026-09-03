@@ -72,6 +72,106 @@
       "image": "/api/menu/image/whatsapp-image-2025-04-22-at-18-20-59-0dfca32b-1787657805237.jpg",
       "available": true,
       "popular": true
+    },
+    {
+      "id": "5",
+      "name": "Mutton Biriyani",
+      "description": "Tender mutton layered with fragrant basmati rice, fried onions, and aromatic spices.",
+      "price": 24,
+      "categoryId": "biriyani",
+      "image": "/api/menu/image/gemini-generated-image-y3tgyqy3tgyqy3tg-1787663446260.jpg",
+      "available": true,
+      "popular": true
+    },
+    {
+      "id": "6",
+      "name": "Egg Biriyani",
+      "description": "Spiced boiled eggs served with fragrant rice and a traditional Kerala masala.",
+      "price": 14,
+      "categoryId": "biriyani",
+      "image": "/api/menu/image/library-1787657701352.jpg",
+      "available": true,
+      "popular": false
+    },
+    {
+      "id": "7",
+      "name": "Beef Roast Porotta",
+      "description": "Flaky Malabar porotta paired with slow-cooked beef roast and roasted spices.",
+      "price": 22,
+      "categoryId": "bread",
+      "image": "/api/menu/image/hanginglamp-1-1-1-1-1-1-1-1787657737139.png",
+      "available": true,
+      "popular": true
+    },
+    {
+      "id": "8",
+      "name": "Chicken Curry Porotta",
+      "description": "Layered porotta served with a rich Kerala-style chicken curry.",
+      "price": 18,
+      "categoryId": "bread",
+      "image": "/api/menu/image/hanginglamp-1-1-1-1-1-1-1-1787657737139.png",
+      "available": true,
+      "popular": false
+    },
+    {
+      "id": "9",
+      "name": "Chapati with Curry",
+      "description": "Soft wheat chapati served with a homestyle vegetable curry.",
+      "price": 12,
+      "categoryId": "bread",
+      "image": "/api/menu/image/card1-1-1-1787657319953.png",
+      "available": true,
+      "popular": false
+    },
+    {
+      "id": "10",
+      "name": "Mango Lassi",
+      "description": "Smooth chilled yogurt drink blended with ripe mango and a touch of cardamom.",
+      "price": 10,
+      "categoryId": "drinks",
+      "image": "/api/menu/image/gemini-generated-image-f4aw98f4aw98f4aw-1787657760754.jpg",
+      "available": true,
+      "popular": true
+    },
+    {
+      "id": "11",
+      "name": "Mint Lime Soda",
+      "description": "Bright fresh lime and mint topped with chilled sparkling soda.",
+      "price": 9,
+      "categoryId": "drinks",
+      "image": "/api/menu/image/gemini-generated-image-f4aw98f4aw98f4aw-1787657760754.jpg",
+      "available": true,
+      "popular": false
+    },
+    {
+      "id": "12",
+      "name": "Fresh Orange Juice",
+      "description": "Refreshing juice made with sweet, freshly squeezed oranges.",
+      "price": 11,
+      "categoryId": "drinks",
+      "image": "/api/menu/image/8401f065-b100-495a-b170-698fc6dab6be-jpg-1787657591556.png",
+      "available": true,
+      "popular": false
+    },
+    {
+      "id": "13",
+      "name": "Cold Coffee",
+      "description": "Chilled creamy coffee blended with milk and a light chocolate finish.",
+      "price": 13,
+      "categoryId": "drinks",
+      "image": "/api/menu/image/gemini-generated-image-3qmfvf3qmfvf3qmf-1787657283385.png",
+      "available": true,
+      "popular": false
+    },
+    {
+      "id": "14",
+      "name": "Masala Tea",
+      "description": "Hot black tea brewed with cardamom, ginger, cinnamon, and warm spices.",
+      "price": 6,
+      "categoryId": "drinks",
+      "image": "/api/menu/image/8401f065-b100-495a-b170-698fc6dab6be-jpg-1787657591556.png",
+      "available": true,
+      "popular": false
     }
   ]
 }
