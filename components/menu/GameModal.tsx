@@ -295,7 +295,7 @@ function DifferenceGame() {
                   const tileContent = isDifferent
                     ? pictureTiles[(index + round + 3) % pictureTiles.length]
                     : tile;
-                  const tileClassName = "flex aspect-square items-center justify-center rounded-md bg-[#fffdf9] text-[11px] sm:rounded-lg sm:text-sm";
+                  const tileClassName = "cursor-pointer flex aspect-square items-center justify-center rounded-md bg-[#fffdf9] text-xl sm:rounded-lg sm:text-xl";
 
                   if (picture === 0) {
                     return (
