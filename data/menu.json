@@ -133,11 +133,11 @@
     },
     {
       "id": "8",
-      "name": "Chicken Curry Porotta",
+      "name": "Chicken Curry",
       "description": "Layered porotta served with a rich Kerala-style chicken curry.",
       "price": 18,
-      "categoryId": "bread",
-      "image": "/api/menu/image/hanginglamp-1-1-1-1-1-1-1-1787657737139.png",
+      "categoryId": "curry",
+      "image": "/api/menu/image/chickencurry-1788437565688.jpg",
       "available": true,
       "popular": false
     },
