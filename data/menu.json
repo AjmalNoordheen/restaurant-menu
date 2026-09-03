@@ -20,6 +20,13 @@
       "icon": "🫓",
       "sort_order": 3,
       "active": true
+    },
+    {
+      "id": "1",
+      "name": "1",
+      "icon": "🍽️",
+      "sort_order": 4,
+      "active": true
     }
   ],
   "items": [
