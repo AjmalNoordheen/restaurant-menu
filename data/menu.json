@@ -41,6 +41,13 @@
       "icon": "🍷",
       "sort_order": 6,
       "active": true
+    },
+    {
+      "id": "fish",
+      "name": "Fish",
+      "icon": "🐠",
+      "sort_order": 7,
+      "active": true
     }
   ],
   "items": [
