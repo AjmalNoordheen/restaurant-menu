@@ -17,8 +17,36 @@
     {
       "id": "bread",
       "name": "Bread",
-      "icon": "🫓",
+      "icon": "🍕",
       "sort_order": 3,
+      "active": true
+    },
+    {
+      "id": "uiui",
+      "name": "uiui",
+      "icon": "🍽️",
+      "sort_order": 4,
+      "active": true
+    },
+    {
+      "id": "alfaham",
+      "name": "Alfaham",
+      "icon": "🍖",
+      "sort_order": 5,
+      "active": true
+    },
+    {
+      "id": "shakes",
+      "name": "Shakes",
+      "icon": "🍷",
+      "sort_order": 6,
+      "active": true
+    },
+    {
+      "id": "fish",
+      "name": "Fish",
+      "icon": "🐠",
+      "sort_order": 7,
       "active": true
     }
   ],
@@ -29,7 +57,7 @@
       "description": "Aromatic basmati rice cooked with tender chicken and traditional spices.",
       "price": 18,
       "categoryId": "biriyani",
-      "image": "/api/menu/image/gemini-generated-image-y3tgyqy3tgyqy3tg-1787663446260.jpg",
+      "image": "/api/menu/image/chickenbiriyani-1788283812853.jpg",
       "available": true,
       "popular": true
     },
@@ -39,9 +67,9 @@
       "description": "Malabar-style biriyani with tender beef and fragrant basmati rice.",
       "price": 20,
       "categoryId": "biriyani",
-      "image": "/api/menu/image/library-1787657701352.jpg",
+      "image": "/api/menu/image/beef-1788419140346.jpg",
       "available": true,
-      "popular": false
+      "popular": true
     },
     {
       "id": "3",
@@ -49,7 +77,7 @@
       "description": "Flaky and layered traditional Malabar-style porotta.",
       "price": 2,
       "categoryId": "bread",
-      "image": "/api/menu/image/hanginglamp-1-1-1-1-1-1-1-1787657737139.png",
+      "image": "/api/menu/image/porotta-1788419185048.jpg",
       "available": true,
       "popular": true
     },
@@ -59,7 +87,7 @@
       "description": "Refreshing fresh lime juice with a hint of mint.",
       "price": 8,
       "categoryId": "drinks",
-      "image": "/api/menu/image/gemini-generated-image-f4aw98f4aw98f4aw-1787657760754.jpg",
+      "image": "/api/menu/image/images-1788419246719.jpg",
       "available": true,
       "popular": false
     },
@@ -69,7 +97,7 @@
       "description": "Best biriyani",
       "price": 89.9,
       "categoryId": "biriyani",
-      "image": "/api/menu/image/whatsapp-image-2025-04-22-at-18-20-59-0dfca32b-1787657805237.jpg",
+      "image": "/api/menu/image/dum-biriyani-1788419297199.jpg",
       "available": true,
       "popular": true
     },
